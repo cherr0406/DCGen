@@ -9,13 +9,15 @@ import time
 import re
 import base64
 import io
-from openai import OpenAI
+from openai import AzureOpenAI, OpenAI
 import numpy as np
 # from skimage.metrics import structural_similarity as ssim
-import google.generativeai as genai
+from google import genai
 import json
 import requests
+import logging
 
+logger = logging.getLogger(__name__)
 
 def take_screenshot(driver, filename):
     driver.save_full_page_screenshot(filename)
@@ -41,12 +43,14 @@ def get_driver(file=None, headless=True, string=None, window_size=(1920, 1080)):
 
 import time
 class Bot:
-    def __init__(self, key_path, patience=3) -> None:
-        if os.path.exists(key_path):
+    def __init__(self, key_path: str | None = None, api_key: str | None = None, patience: int = 3) -> None:
+        if api_key:
+            self.key = api_key
+        elif key_path and os.path.exists(key_path):
             with open(key_path, "r") as f:
                 self.key = f.read().replace("\n", "")
         else:
-            self.key = key_path
+            logger.error("No API key found. Please provide a valid key.")
         self.patience = patience
     
     def ask(self):
@@ -63,16 +67,15 @@ class Bot:
 
 
 class Gemini(Bot):
-    def __init__(self, key_path, patience=3) -> None:
-        super().__init__(key_path, patience)
+    def __init__(self, model: str, key_path: str | None = None, api_key: str | None = None, patience: int = 3) -> None:
+        super().__init__(key_path=key_path, api_key=api_key, patience=patience)
         GOOGLE_API_KEY= self.key
-        genai.configure(api_key=GOOGLE_API_KEY)
+        self.client = genai.Client(api_key=GOOGLE_API_KEY, http_options={"timeout": 3000})
         self.name = "Gemini"
+        self.model = model
         self.file_count = 0
         
     def ask(self, question, image_encoding=None, verbose=False):
-        model = genai.GenerativeModel('gemini-1.5-flash-latest')
-
         if verbose:
             print(f"##################{self.file_count}##################")
             print("question:\n", question)
@@ -80,10 +83,9 @@ class Gemini(Bot):
         if image_encoding:
             img = base64.b64decode(image_encoding)
             img = Image.open(io.BytesIO(img))
-            response = model.generate_content([question, img], request_options={"timeout": 3000}) 
+            response = self.client.models.generate_content(model=self.model, contents=[question, img]) 
         else:    
-            response = model.generate_content(question, request_options={"timeout": 3000})
-        response.resolve()
+            response = self.client.models.generate_content(model=self.model, contents=question)
 
         if verbose:
             print("####################################")
@@ -97,9 +99,21 @@ class Gemini(Bot):
 
 
 class GPT4(Bot):
-    def __init__(self, key_path, patience=3, model="gpt-4o") -> None:
-        super().__init__(key_path, patience)
-        self.client = OpenAI(api_key=self.key)
+    def __init__(
+        self,
+        key_path: str | None = None,
+        api_key: str | None = None,
+        patience: int = 3,
+        model: str = "gpt-4o",
+        endpoint: str | None = None,
+        deployment: str | None = None,
+        api_version: str | None = None,
+    ) -> None:
+        super().__init__(key_path=key_path, api_key=api_key, patience=patience)
+        if endpoint and "azure" in endpoint:
+            self.client = AzureOpenAI(api_key=self.key, azure_endpoint=endpoint, azure_deployment=deployment, api_version=api_version)
+        else:
+            self.client = OpenAI(api_key=self.key)
         self.name="gpt4"
         self.model = model
         
@@ -121,13 +135,11 @@ class GPT4(Bot):
         else:
             content = {"role": "user", "content": question}
         response = self.client.chat.completions.create(
-        model=self.model,
-        messages=[
-         content
-        ],
-        max_tokens=4096,
-        temperature=0,
-        seed=42,
+            model=self.model,
+            messages=[content],
+            max_tokens=4096,
+            temperature=0,
+            seed=42,
         )
         response = response.choices[0].message.content
         if verbose:
