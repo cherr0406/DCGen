@@ -162,7 +162,7 @@ from single_file import single_file
 from tqdm.auto import tqdm
 import os
 from PIL import Image, ImageDraw, ImageChops
-from utils import *
+from .utils import *
 
 def num_of_nodes(driver, area="body", element=None):
     # number of nodes in body

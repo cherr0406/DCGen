@@ -19,7 +19,7 @@ Usage:
 
 import sys
 sys.path.append('..')
-from utils import simplify_html, get_driver, take_screenshot, encode_image, GPT4, DCGenTrace, ImgSegmentation
+from .utils import simplify_html, get_driver, take_screenshot, encode_image, GPT4, DCGenTrace, ImgSegmentation
 from single_file import single_file
 import os
 import pandas as pd
