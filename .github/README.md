@@ -2,7 +2,7 @@
 
 Unofficial pip-installable version of [DCGen](https://github.com/WebPAI/DCGen/).
 
-- [Changes](https://github.com/WebPAI/DCGen/compare/c0c99d1...cherr0406:DCGen:main)
+- [Changes](https://github.com/WebPAI/DCGen/compare/main...cherr0406:DCGen:main)
 - [Original README](/README.md)
 
 ## Installation
