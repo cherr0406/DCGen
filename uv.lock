@@ -238,7 +238,7 @@ wheels = [
 [[package]]
 name = "dcgen"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "google-genai" },
@@ -248,7 +248,6 @@ dependencies = [
     { name = "pillow" },
     { name = "requests" },
     { name = "selenium" },
-    { name = "setuptools" },
     { name = "tqdm" },
 ]
 
@@ -256,6 +255,7 @@ dependencies = [
 dev = [
     { name = "mypy" },
     { name = "ruff" },
+    { name = "setuptools" },
 ]
 
 [package.metadata]
@@ -268,7 +268,6 @@ requires-dist = [
     { name = "pillow", specifier = ">=11.2.1" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "selenium", specifier = ">=4.31.0" },
-    { name = "setuptools", specifier = ">=80.1.0" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]
 
@@ -276,6 +275,7 @@ requires-dist = [
 dev = [
     { name = "mypy", specifier = ">=1.15.0" },
     { name = "ruff", specifier = ">=0.11.7" },
+    { name = "setuptools", specifier = ">=80.1.0" },
 ]
 
 [[package]]

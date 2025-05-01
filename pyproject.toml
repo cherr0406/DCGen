@@ -13,7 +13,6 @@ dependencies = [
     "pillow>=11.2.1",
     "requests>=2.32.3",
     "selenium>=4.31.0",
-    "setuptools>=80.1.0",
     "tqdm>=4.67.1",
 ]
 
@@ -21,6 +20,7 @@ dependencies = [
 dev = [
     "mypy>=1.15.0",
     "ruff>=0.11.7",
+    "setuptools>=80.1.0",
 ]
 
 [tool.mypy]
@@ -48,3 +48,13 @@ indent-style = "space"
 
 [tool.ruff.lint.mccabe]
 max-complexity = 5
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+DCGen = ["py.typed"]

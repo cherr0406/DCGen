@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="DCGen",
@@ -6,4 +6,5 @@ setup(
     description="Unofficial pip-installable version of DCGen",
     packages=find_packages("src"),
     package_dir={"": "src"},
+    include_package_data=True,
 )
