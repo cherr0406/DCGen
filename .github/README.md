@@ -10,5 +10,5 @@ Unofficial pip-installable version of [DCGen](https://github.com/WebPAI/DCGen/).
 For simple inference,
 
 ```bash
-pip install "git@github.com:cherr0406/DCGen.git"
+pip install "git+https://github.com/cherr0406/DCGen.git"
 ```
