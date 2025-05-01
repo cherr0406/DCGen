@@ -3,18 +3,18 @@ name = "dcgen"
 version = "0.1.0"
 description = "Unofficial pip-installable version of DCGen"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
-    "beautifulsoup4>=4.13.4",
-    "google-genai>=1.12.1",
+    "beautifulsoup4>=4.12.2",
+    "google-genai>=1.13.0",
     "matplotlib>=3.10.1",
-    "openai>=1.13.3",
-    "pandas>=2.2.1",
-    "pillow>=10.2.0",
+    "openai>=1.76.2",
+    "pandas>=2.2.3",
+    "pillow>=11.2.1",
     "requests>=2.32.3",
-    "selenium>=4.18.1",
-    "setuptools>=80.0.1",
-    "tqdm>=4.66.2",
+    "selenium>=4.31.0",
+    "setuptools>=80.1.0",
+    "tqdm>=4.67.1",
 ]
 
 [dependency-groups]
@@ -33,7 +33,7 @@ warn_return_any = true
 check_untyped_defs = true
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py310"
 line-length = 100
 exclude = [".venv", "venv", "__pycache__", ".git"]
 
