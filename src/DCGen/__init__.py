@@ -18,3 +18,24 @@ from .utils import (
     str2base64,
     take_screenshot,
 )
+
+__all__ = [
+    "GPT4",
+    "Bot",
+    "DCGenTrace",
+    "FakeBot",
+    "Gemini",
+    "ImgNode",
+    "ImgSegmentation",
+    "are_different_fast",
+    "compute_hash",
+    "encode_image",
+    "get_driver",
+    "measure_time",
+    "num_of_nodes",
+    "simplify_graphic",
+    "simplify_html",
+    "str2base64",
+    "take_screenshot",
+    "prompt_dcgen",
+]
