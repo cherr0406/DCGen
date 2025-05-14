@@ -158,7 +158,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 import base64
-from single_file import single_file
+from .single_file import single_file
 from tqdm.auto import tqdm
 import os
 from PIL import Image, ImageDraw, ImageChops
