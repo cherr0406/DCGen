@@ -53,7 +53,7 @@ class Bot:
             logger.error("No API key found. Please provide a valid key.")
         self.patience = patience
     
-    def ask(self):
+    def ask(self, question, image_encoding=None, verbose=False):
         raise NotImplementedError
     
     def try_ask(self, question, image_encoding=None, verbose=False):
